@@ -1,0 +1,93 @@
+@baseUrl = http://localhost:3000/api
+
+### -----------------------
+### BOOKS
+### -----------------------
+
+### Get All Books
+GET {{baseUrl}}/books
+Accept: application/json
+
+### Get Available Books
+GET {{baseUrl}}/books/available
+Accept: application/json
+
+### Get Book by ID
+GET {{baseUrl}}/books/b1
+Accept: application/json
+
+### Add New Book
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "isbn": "978-3-16-148410-0",
+  "title": "The Pragmatic Programmer",
+  "author": "Andy Hunt",
+  "category": "Technology",
+  "total_copies": 5
+}
+
+### Update Book
+PUT {{baseUrl}}/books/b1
+Content-Type: application/json
+
+{
+  "total_copies": 10
+}
+
+### Delete Book
+DELETE {{baseUrl}}/books/b1
+
+### -----------------------
+### MEMBERS
+### -----------------------
+
+### Get All Members
+GET {{baseUrl}}/members
+Accept: application/json
+
+### Add New Member
+POST {{baseUrl}}/members
+Content-Type: application/json
+
+{
+  "name": "Lokesh Reddy",
+  "email": "lokesh@example.com",
+  "membership_number": "MEM999"
+}
+
+### Get Member Borrowed Books
+GET {{baseUrl}}/members/m1/borrowed
+Accept: application/json
+
+### -----------------------
+### TRANSACTIONS (Circulation)
+### -----------------------
+
+### Borrow Book
+# Fails if member has > 3 books or unpaid fines
+POST {{baseUrl}}/transactions/borrow
+Content-Type: application/json
+
+{
+  "book_id": "b1",
+  "member_id": "m1"
+}
+
+### Return Book
+# Calculates fines automatically if overdue
+POST {{baseUrl}}/transactions/t-seed-2/return
+Content-Type: application/json
+
+### List Overdue Transactions
+GET {{baseUrl}}/transactions/overdue
+Accept: application/json
+
+### -----------------------
+### FINES
+### -----------------------
+
+### Pay Fine
+POST {{baseUrl}}/fines/f-seed-1/pay
+Content-Type: application/json
